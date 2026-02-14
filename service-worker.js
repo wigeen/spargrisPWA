@@ -1,7 +1,9 @@
-const CACHE_NAME = 'mina-pengar-v1';
+const CACHE_NAME = 'mina-pengar-v2';
 const FILES_TO_CACHE = [
   'index.html',
-  'manifest.json'
+  'manifest.json',
+  'icon-192.png',
+  'icon-512.png'
 ];
 
 self.addEventListener('install', event => {
@@ -22,6 +24,6 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(resp => resp || fetch(event.request))
+    caches.match(event.request).then(resp => resp || fetch(event.request).catch(() => caches.match('index.html')))
   );
 });
